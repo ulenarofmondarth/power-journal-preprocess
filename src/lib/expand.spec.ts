@@ -33,10 +33,10 @@ describe('expand', () => {
 
   it('error on unbalanced quoted macro name', () => {
     const content = '{{"if | 2==2 | isTrue | isFalse }}';
-    const correctResult =  'Unrecognised macro function';
+    const correctResult = 'Unrecognised macro function';
     vi.mocked(localize).mockReturnValue(correctResult);
 
-    expect(expand(content)).toEqual(correctResult);
+    expect(expand(content)).toContain(correctResult);
   });
 
   it('runs multiple macros', () => {
@@ -63,7 +63,7 @@ describe('expand', () => {
   });
 
   it('imbalance fails to expand', () => {
-    const content = 'if 2==2 {{if | 2==2 | isTrue | isFalse '
+    const content = 'if 2==2 {{if | 2==2 | isTrue | isFalse ';
     const correctResult = content;
 
     expect(expand(content)).toEqual(correctResult);
@@ -71,7 +71,7 @@ describe('expand', () => {
 
   it('nested imbalance fails to expand', () => {
     const content = 'if 2==2 {{if | {{ if | 1==2 | isTrue | 2==2}} | isTrue | isFalse';
-    const correctResult = content;
+    const correctResult =  'if 2==2 {{if | 2==2 | isTrue | isFalse';
 
     expect(expand(content)).toEqual(correctResult);
   });

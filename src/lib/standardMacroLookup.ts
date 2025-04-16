@@ -5,7 +5,12 @@
  */
 import internalMacros from './internalMacros';
 
-export type Macro = (...args: string[]) => string;
+export interface MacroResult {
+  result: string;
+  errors?: string[];
+}
+
+export type Macro = (...args: string[]) => MacroResult;
 export type MacroLookup = (name: string) => undefined | Macro;
 export type MacroTable = Record<string, Macro>;
 

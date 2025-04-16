@@ -3,51 +3,79 @@ import { standardMacroLookup } from './standardMacroLookup';
 
 import type { Macro, MacroLookup } from './standardMacroLookup';
 
-function expand(content: string, macroLookup: MacroLookup = standardMacroLookup): string | [string, string] {
-  let remainingContent=content;
-  let result = '';
+export interface ExpandedContent {
+  expanded: string;
+  remaining: string;
+  errors?: string[];
+}
+
+function expand(content: string, macroLookup: MacroLookup = standardMacroLookup): string {
+  const result =_expand(content, macroLookup);
+  const errors = (result?.errors) ? JSON.stringify(result.errors) : '';
+  return `${result.expanded}${errors}`;
+}
+
+function _expand(content: string, macroLookup: MacroLookup = standardMacroLookup, depth = 0): ExpandedContent {
+  const result: ExpandedContent = {
+    expanded: '',
+    remaining: content,
+  };
 
   do {
-    const openMacro = remainingContent.search(/{{/);
-    const closeMacro = remainingContent.search(/}}/);
+    const openMacro = result.remaining.search(/{{/);
+    const closeMacro = result.remaining.search(/}}/);
 
     if (openMacro >= 0 || closeMacro >= 0) {
       if (closeMacro >= 0 && (openMacro < 0 || closeMacro < openMacro)) {
-        const [fn, args]: [string, string[]] = parseMacroBlock(result.concat(remainingContent.slice(0, closeMacro)));
-        remainingContent = remainingContent.slice(closeMacro + 2);
+        const [fn, args]: [string, string[]] = parseMacroBlock(
+          result.expanded.concat(result.remaining.slice(0, closeMacro)),
+        );
+        result.remaining = result.remaining.slice(closeMacro + 2);
         if (!fn) {
-          return [localize('MON-PJE.ERROR.badfunc'), remainingContent];
+          (result.errors ?? (result.errors = [])).push(localize('MON-PJE.ERROR.badfunc'));
+          return result;
         }
         const macro: undefined | Macro = macroLookup(fn);
 
         if (macro) {
-          return [macro(...args), remainingContent];
+          const { result: expandedMacro, errors } = macro(...args);
+          result.expanded = expandedMacro;
+          if (errors) {
+            (result.errors ?? (result.errors = [])).push(...errors);
+          }
+
+          return result;
         }
       } else {
-        const prolog = remainingContent.slice(0, openMacro);
-        let expansion = expand(remainingContent.slice(openMacro + 2), macroLookup);
-        if (typeof expansion === 'string') {
-          // Mistmatched {{}}
-          expansion = remainingContent.slice(openMacro);
-          remainingContent = '';
+        const prolog = result.remaining.slice(0, openMacro);
+        const expansion = _expand(result.remaining.slice(openMacro + 2), macroLookup, depth+1);
+        if (expansion.errors) {
+          
+          (result.errors ?? (result.errors = [])).push(...expansion.errors);
+          result.expanded = result.remaining.slice(openMacro);
+          result.remaining = '';
         }
         else {
-          [expansion, remainingContent] = expansion;
+        result.expanded = result.expanded.concat(prolog, expansion.expanded);
+        result.remaining = expansion.remaining;
         }
-        result = result.concat(prolog, expansion);
       }
     } else {
-      result = (!result) ? content : result.concat(remainingContent);
-      remainingContent = "";
+      if (depth > 0 && result.remaining.search(/}}/) < 0) { // we expect }} to close the expansion, if missing...
+        result.expanded ='{{'.concat(result.expanded); 
+      }
+
+      result.expanded = result.expanded.concat(result.remaining);
+      result.remaining = '';
     }
-  } while (remainingContent);
+  } while (result.remaining);
 
   return result;
 }
 
 function parseMacroBlock(block: string): [string, string[]] {
   let remainingBlock = block.trim();
-  let fn = remainingBlock.match(/^(((["']).*?(?<!\\)\3)|[^"']\S*)/)?.[0]
+  let fn = remainingBlock.match(/^(((["']).*?(?<!\\)\3)|[^"']\S*)/)?.[0];
   remainingBlock = remainingBlock.slice(fn?.length).trim();
   fn = fn?.replace(/^["']/, '').replace(/["']$/, '');
   if (!fn) {

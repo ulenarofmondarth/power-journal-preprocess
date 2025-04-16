@@ -1,5 +1,5 @@
 import { MODULE_ID } from './constants';
-import { expand } from './lib/expand';
+import { expand } from '@lib/expand';
 
 export function powerEnhance() {
   libWrapper.register(
@@ -9,14 +9,7 @@ export function powerEnhance() {
       // Recursively process the HTML as text
       console.log('wrapper for enricher run');
 
-      let expandedContent = expand(content);
-      if (typeof expandedContent !== 'string') {
-        // If we do not get a string then something went horribly wrong with the expnsion
-        // failsafe to original content
-        expandedContent = content;
-      }
-
-      const result = wrapped(expandedContent, options);
+      const result = wrapped(expand(content), options);
       return result;
     },
     'WRAPPER',
