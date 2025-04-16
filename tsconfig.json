@@ -1,0 +1,19 @@
+{
+  "extends": "@tsconfig/svelte/tsconfig.json",
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "module": "esnext",
+    "target": "ES6",
+    "lib": ["DOM", "ES6", "ES2017", "ES2018"],
+    "types": ["svelte","@league-of-foundry-developers/foundry-vtt-types","node"],
+    "allowUmdGlobalAccess": true,
+    "strictNullChecks": true,
+    "rootDir": "src",
+    "baseUrl": ".",
+    "paths": {
+      "@lib/*": [ "src/lib/*" ]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules/*", "__sapper__/*", "public/*"]
+}

@@ -1,0 +1,25 @@
+name: Build and Deploy Docs
+on: push
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      attestations: write
+      id-token: write
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build Documentation
+      run: |
+        docker run --rm -v "${{ github.workspace }}/docs":/docs ghcr.io/ulenarofmondarth/sphinx-docs:latest make html
+        cd ./docs/_build/html
+        zip -r ${{ github.workspace }}/documentation-${{ github.ref_name }}.zip .
+    - name: Deploy Documentation
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs/_build/html
