@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EMMA documentation &mdash; EMMA 0.1.0 documentation</title>
+  <title>Power Journal Enrich Preprocess documentation &mdash; PJE Preprocess 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
@@ -32,7 +32,7 @@
           
           
           <a href="#" class="icon icon-home">
-            EMMA
+            PJE Preprocess
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -44,7 +44,10 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <!-- Local TOC -->
               <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">EMMA documentation</a></li>
+<li><a class="reference internal" href="#">Power Journal Enrich Preprocess documentation</a><ul>
+<li><a class="reference internal" href="#basic-form">Basic form</a></li>
+</ul>
+</li>
 </ul>
 </div>
         </div>
@@ -53,7 +56,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">EMMA</a>
+          <a href="#">PJE Preprocess</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -61,7 +64,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">EMMA documentation</li>
+      <li class="breadcrumb-item active">Power Journal Enrich Preprocess documentation</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -71,13 +74,30 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="emma-documentation">
-<h1>EMMA documentation<a class="headerlink" href="#emma-documentation" title="Link to this heading"></a></h1>
-<p>Add your content using <code class="docutils literal notranslate"><span class="pre">reStructuredText</span></code> syntax. See the
-<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html">reStructuredText</a>
-documentation for details.</p>
+  <section id="power-journal-enrich-preprocess-documentation">
+<h1>Power Journal Enrich Preprocess documentation<a class="headerlink" href="#power-journal-enrich-preprocess-documentation" title="Link to this heading"></a></h1>
+<p>This is a generalized pre-processor for Foundry VTT <code class="docutils literal notranslate"><span class="pre">enhanceHTML</span></code>, standard enrich functinality remains unchanged and is performed <em>after</em> this preprocessing.</p>
+<section id="basic-form">
+<h2>Basic form<a class="headerlink" href="#basic-form" title="Link to this heading"></a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="n">fn</span> <span class="o">|</span> <span class="n">arg1</span> <span class="o">|</span> <span class="n">arg2</span> <span class="p">}}</span>
+</pre></div>
+</div>
+<p>The function <code class="docutils literal notranslate"><span class="pre">fn</span></code> is called with <code class="docutils literal notranslate"><span class="pre">args</span></code>, returned expansion is inlined.</p>
+<p>These ‘macros’ can be nested:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="n">fn1</span> <span class="o">|</span> <span class="p">{{</span><span class="n">fn2</span> <span class="o">|</span> <span class="n">arg1</span><span class="p">}}</span> <span class="p">}}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">fn2</span></code> will be invoked with <code class="docutils literal notranslate"><span class="pre">arg2</span></code> as an argument. The result will inline and become the argument for <code class="docutils literal notranslate"><span class="pre">fn1</span></code>.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">fn</span></code> can be:</p>
+<ul class="simple">
+<li><p>A named macro</p></li>
+<li><p>A macro UUID</p></li>
+<li><p>A module function that has registered with PJE</p></li>
+<li><p>One of the built in functions</p></li>
+</ul>
 <div class="toctree-wrapper compound">
 </div>
+</section>
 </section>
 
 
