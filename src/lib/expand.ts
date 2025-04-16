@@ -10,8 +10,8 @@ export interface ExpandedContent {
 }
 
 function expand(content: string, macroLookup: MacroLookup = standardMacroLookup): string {
-  const result =_expand(content, macroLookup);
-  const errors = (result?.errors) ? JSON.stringify(result.errors) : '';
+  const result = _expand(content, macroLookup);
+  const errors = result?.errors ? JSON.stringify(result.errors) : '';
   return `${result.expanded}${errors}`;
 }
 
@@ -30,6 +30,7 @@ function _expand(content: string, macroLookup: MacroLookup = standardMacroLookup
         const [fn, args]: [string, string[]] = parseMacroBlock(
           result.expanded.concat(result.remaining.slice(0, closeMacro)),
         );
+        const n = result.remaining;
         result.remaining = result.remaining.slice(closeMacro + 2);
         if (!fn) {
           (result.errors ?? (result.errors = [])).push(localize('MON-PJE.ERROR.badfunc'));
@@ -45,24 +46,27 @@ function _expand(content: string, macroLookup: MacroLookup = standardMacroLookup
           }
 
           return result;
+        } else {
+          (result.errors ?? (result.errors = [])).push(localize('MON-PJE.ERROR.toomanycloses'));
+          result.expanded = n;
+          result.remaining = '';
         }
       } else {
         const prolog = result.remaining.slice(0, openMacro);
-        const expansion = _expand(result.remaining.slice(openMacro + 2), macroLookup, depth+1);
+        const expansion = _expand(result.remaining.slice(openMacro + 2), macroLookup, depth + 1);
         if (expansion.errors) {
-          
           (result.errors ?? (result.errors = [])).push(...expansion.errors);
           result.expanded = result.remaining.slice(openMacro);
           result.remaining = '';
-        }
-        else {
-        result.expanded = result.expanded.concat(prolog, expansion.expanded);
-        result.remaining = expansion.remaining;
+        } else {
+          result.expanded = result.expanded.concat(prolog, expansion.expanded);
+          result.remaining = expansion.remaining;
         }
       }
     } else {
-      if (depth > 0 && result.remaining.search(/}}/) < 0) { // we expect }} to close the expansion, if missing...
-        result.expanded ='{{'.concat(result.expanded); 
+      if (depth > 0 && result.remaining.search(/}}/) < 0) {
+        // we expect }} to close the expansion, if missing...
+        result.expanded = '{{'.concat(result.expanded);
       }
 
       result.expanded = result.expanded.concat(result.remaining);

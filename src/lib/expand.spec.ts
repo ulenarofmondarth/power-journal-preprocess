@@ -8,6 +8,7 @@ vi.mock('@lib/helpers');
 describe('expand', () => {
   afterEach(() => {
     vi.restoreAllMocks();
+    vi.mocked(localize).mockReturnValue('unanticipated call to localize ');
   });
 
   it('runs single macros', () => {
@@ -62,6 +63,16 @@ describe('expand', () => {
     expect(expand(content)).toEqual(correctResult);
   });
 
+  it('imbalanced close fails to expand', () => {
+    const content = '{"{if | 2==2 | isTrue | isFalse }}';
+    const correctResult = content;
+    vi.mocked(localize).mockReturnValue('Too many }}');
+
+    const result = expand(content);
+    expect(result).toContain(correctResult);
+    expect(result).toContain('Too many }}');
+  });
+
   it('imbalance fails to expand', () => {
     const content = 'if 2==2 {{if | 2==2 | isTrue | isFalse ';
     const correctResult = content;
@@ -71,7 +82,7 @@ describe('expand', () => {
 
   it('nested imbalance fails to expand', () => {
     const content = 'if 2==2 {{if | {{ if | 1==2 | isTrue | 2==2}} | isTrue | isFalse';
-    const correctResult =  'if 2==2 {{if | 2==2 | isTrue | isFalse';
+    const correctResult = 'if 2==2 {{if | 2==2 | isTrue | isFalse';
 
     expect(expand(content)).toEqual(correctResult);
   });
