@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'EMMA'
+project = 'PJE Preprocess'
 copyright = '2025, Ulenar of Mondarth'
 author = 'Ulenar of Mondarth'
 release = '0.1.0'
