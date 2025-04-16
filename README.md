@@ -4,4 +4,4 @@ Preprocessor for `enrichHTML` to generalise enrichment and allow a simple nestin
 
 Normal enrichment is performed after this pre-process phase.
 
-See docs for full details.
+See [docs](https://ulenarofmondarth.github.io/power-journal-preprocess/) for full details.
