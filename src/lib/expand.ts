@@ -6,75 +6,86 @@ import type { Macro, MacroLookup } from './standardMacroLookup';
 export interface ExpandedContent {
   expanded: string;
   remaining: string;
-  errors?: string[];
+  errors: string[];
 }
 
 function expand(content: string, macroLookup: MacroLookup = standardMacroLookup): string {
   const result = _expand(content, macroLookup);
-  const errors = result?.errors ? JSON.stringify(result.errors) : '';
+  const errors = result.errors.length ? JSON.stringify(result.errors) : '';
   return `${result.expanded}${errors}`;
 }
 
 function _expand(content: string, macroLookup: MacroLookup = standardMacroLookup, depth = 0): ExpandedContent {
-  const result: ExpandedContent = {
-    expanded: '',
-    remaining: content,
-  };
+  let expanded = '';
+  let remaining = content;
+  const errors: string[] = [];
 
   do {
-    const openMacro = result.remaining.search(/{{/);
-    const closeMacro = result.remaining.search(/}}/);
+    const openMacro = remaining.search(/{{/);
+    const closeMacro = remaining.search(/}}/);
 
     if (openMacro >= 0 || closeMacro >= 0) {
       if (closeMacro >= 0 && (openMacro < 0 || closeMacro < openMacro)) {
         const [fn, args]: [string, string[]] = parseMacroBlock(
-          result.expanded.concat(result.remaining.slice(0, closeMacro)),
+          expanded.concat(remaining.slice(0, closeMacro)),
         );
-        const n = result.remaining;
-        result.remaining = result.remaining.slice(closeMacro + 2);
+        const n = remaining;
+        remaining = remaining.slice(closeMacro + 2);
         if (!fn) {
-          (result.errors ?? (result.errors = [])).push(localize('MON-PJE.ERROR.badfunc'));
-          return result;
+          errors.push(localize('MON-PJE.ERROR.badfunc'));
+          return {
+            expanded,
+            remaining,
+            errors
+          };
         }
         const macro: undefined | Macro = macroLookup(fn);
 
         if (macro) {
-          const { result: expandedMacro, errors } = macro(...args);
-          result.expanded = expandedMacro;
-          if (errors) {
-            (result.errors ?? (result.errors = [])).push(...errors);
+          const { result: expandedMacro, errors: macroErrors } = macro(...args);
+          expanded = expandedMacro;
+          if (macroErrors.length > 0) {
+            errors.push(...macroErrors);
           }
 
-          return result;
+          return {
+            expanded,
+            remaining,
+            errors
+          };
         } else {
-          (result.errors ?? (result.errors = [])).push(localize('MON-PJE.ERROR.toomanycloses'));
-          result.expanded = n;
-          result.remaining = '';
+          errors.push(localize('MON-PJE.ERROR.toomanycloses'));
+          expanded = n;
+          remaining = '';
         }
       } else {
-        const prolog = result.remaining.slice(0, openMacro);
-        const expansion = _expand(result.remaining.slice(openMacro + 2), macroLookup, depth + 1);
-        if (expansion.errors) {
-          (result.errors ?? (result.errors = [])).push(...expansion.errors);
-          result.expanded = result.remaining.slice(openMacro);
-          result.remaining = '';
+        const prolog = remaining.slice(0, openMacro);
+        const expansion = _expand(remaining.slice(openMacro + 2), macroLookup, depth + 1);
+        if (expansion.errors.length > 0) {
+          errors.push(...expansion.errors);
+          expanded = remaining.slice(openMacro);
+          remaining = '';
         } else {
-          result.expanded = result.expanded.concat(prolog, expansion.expanded);
-          result.remaining = expansion.remaining;
+          expanded = expanded.concat(prolog, expansion.expanded);
+          remaining = expansion.remaining;
         }
       }
     } else {
-      if (depth > 0 && result.remaining.search(/}}/) < 0) {
+      if (depth > 0 && remaining.search(/}}/) < 0) {
         // we expect }} to close the expansion, if missing...
-        result.expanded = '{{'.concat(result.expanded);
+        expanded = '{{'.concat(expanded);
       }
 
-      result.expanded = result.expanded.concat(result.remaining);
-      result.remaining = '';
+      expanded = expanded.concat(remaining);
+      remaining = '';
     }
-  } while (result.remaining);
+  } while (remaining);
 
-  return result;
+  return {
+    expanded,
+    remaining,
+    errors
+  };
 }
 
 function parseMacroBlock(block: string): [string, string[]] {

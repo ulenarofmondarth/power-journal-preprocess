@@ -7,7 +7,7 @@ import internalMacros from './internalMacros';
 
 export interface MacroResult {
   result: string;
-  errors?: string[];
+  errors: string[];
 }
 
 export type Macro = (...args: string[]) => MacroResult;
