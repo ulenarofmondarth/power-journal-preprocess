@@ -95,7 +95,7 @@ export default ({ mode }) => {
       emptyOutDir: false,
       sourcemap: s_SOURCEMAPS,
       brotliSize: true,
-      minify: s_COMPRESS ? 'terser' : false,
+      minify: s_COMPRESS ? 'esbuild' : false,
       target: ['es2022'],
       lib: {
         entry: './index.ts',
