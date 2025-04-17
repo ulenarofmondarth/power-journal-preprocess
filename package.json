@@ -20,6 +20,7 @@
     "serve:docs": "docker run --rm --name docserver -d -p 8080:80 -v \"$(pwd)/docs/_build/html\":/usr/share/nginx/html:ro nginx",
     "devserve:docs": "docker run --rm --user \"$(id -u):$(id -g)\" --name docdevserver -d -p 8081:8000 -v \"$(pwd)/docs\":/doc -w /doc ghcr.io/ulenarofmondarth/sphinx-docs sphinx-autobuild --host 0.0.0.0 --port 8000 . _build/html",
     "prettier:format": "prettier --config .prettierrc.json --write \"./src/**/*.{ts,js,mjs,json,scss,css}\"",
+    "lint-staged": "lint-staged",
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix"
   },
@@ -40,6 +41,7 @@
     "eslint-plugin-svelte": "^3.3.3",
     "globals": "^16.0.0",
     "husky": "^9.1.7",
+    "lint-staged": "^15.5.1",
     "prettier": "^3.5.3",
     "svelte": "^4.2.19",
     "svelte-preprocess": "^6.0.3",
