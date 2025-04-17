@@ -1,7 +1,5 @@
 {
-  "*.{js,ts,svelte}": [
-    "pnpm prettier:format",
-    "pnpm lint",
-    "vitest related --run"
-  ]
+  "*.json": ["pnpm prettier:format"],
+  "*.{css,scss}": ["pnpm prettier:format"],
+  "*.{js,ts,mjs,svelte}": ["pnpm prettier:format", "pnpm lint", "vitest related --run"]
 }
