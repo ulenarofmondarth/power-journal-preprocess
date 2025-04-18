@@ -15,7 +15,7 @@ function expand(content: string, macroLookup: MacroLookup = standardMacroLookup)
   return `${result.expanded}${errors}`;
 }
 
-function _expand(content: string, macroLookup: MacroLookup = standardMacroLookup, depth = 0): ExpandedContent {
+function _expand(content: string = '', macroLookup: MacroLookup = standardMacroLookup, depth = 0): ExpandedContent {
   let expanded = '';
   let remaining = content;
   const errors: string[] = [];
