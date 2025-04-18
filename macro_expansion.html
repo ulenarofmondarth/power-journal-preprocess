@@ -1,0 +1,177 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Macro Expansion &mdash; PJE Preprocess 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=01f34227"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Macro Arguments" href="macro_arguments.html" />
+    <link rel="prev" title="Power Journal Enrich Preprocess documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PJE Preprocess
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Macro Expansion</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#whitespace">Whitespace</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#macro-names">Macro Names</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="macro_arguments.html">Macro Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="internal_macros.html">Internal macros</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PJE Preprocess</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Macro Expansion</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/macro_expansion.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="macro-expansion">
+<h1>Macro Expansion<a class="headerlink" href="#macro-expansion" title="Link to this heading"></a></h1>
+<p>Macros are expanded ‘deepest first’.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="n">fn1</span> <span class="o">|</span> <span class="p">{{</span><span class="n">fn2</span> <span class="o">|</span> <span class="p">{{</span><span class="n">fn3</span><span class="p">}}</span> <span class="p">}}</span> <span class="p">}}</span>
+</pre></div>
+</div>
+<p>Will expand <code class="docutils literal notranslate"><span class="pre">fn3</span></code> <svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-arrow-right" viewBox="0 0 16 16" aria-hidden="true"><path d="M8.22 2.97a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042l2.97-2.97H3.75a.75.75 0 0 1 0-1.5h7.44L8.22 4.03a.75.75 0 0 1 0-1.06Z"></path></svg> <code class="docutils literal notranslate"><span class="pre">fn2</span></code> <svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-arrow-right" viewBox="0 0 16 16" aria-hidden="true"><path d="M8.22 2.97a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042l2.97-2.97H3.75a.75.75 0 0 1 0-1.5h7.44L8.22 4.03a.75.75 0 0 1 0-1.06Z"></path></svg> <code class="docutils literal notranslate"><span class="pre">fn1</span></code>.</p>
+<p>Macros work over multiple lines.</p>
+<p>Macros <em>will</em> reprocess expanded text. So, if <code class="docutils literal notranslate"><span class="pre">fn3</span></code> in the previous example returned the text <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">fn4</span> <span class="pre">}}</span></code> then <code class="docutils literal notranslate"><span class="pre">fn4</span></code> will be run and its expansion returned.</p>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span> <span class="n">fn1</span> <span class="o">|</span> <span class="p">{{</span> <span class="n">fn2</span> <span class="p">}}</span> <span class="p">}}</span>
+</pre></div>
+</div>
+<p>Because <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">fn2</span> <span class="pre">}}</span></code> will expand before <code class="docutils literal notranslate"><span class="pre">fn1</span></code>, if it returns <code class="docutils literal notranslate"><span class="pre">arg1</span></code> then the outer macro becomes <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">fn1</span> <span class="pre">|</span> <span class="pre">arg1</span> <span class="pre">}}</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">fn2</span></code> had returned <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">fn3</span> <span class="pre">}}</span></code> then this would be evaluated. If <code class="docutils literal notranslate"><span class="pre">fn3</span></code> expanded to <code class="docutils literal notranslate"><span class="pre">Hello</span> <span class="pre">World!</span></code> then outer macro would be <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">fn1</span> <span class="pre">|</span> <span class="pre">Hello</span> <span class="pre">World!</span> <span class="pre">}}</span></code>.</p>
+</div>
+<p>Suppose we have:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">fn3 returns…</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">This</span> <span class="ow">is</span> <span class="n">fn3</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">fn2 returns…</span><a class="headerlink" href="#id2" title="Link to this code"></a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">My</span> <span class="n">first</span> <span class="n">arg</span> <span class="ow">is</span> <span class="o">&lt;</span><span class="n">arg1</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">&lt;arg1&gt;</span></code> is whatever appears between the <code class="docutils literal notranslate"><span class="pre">|</span></code> and the <code class="docutils literal notranslate"><span class="pre">}}</span></code> (in thise instance this will be whatever <code class="docutils literal notranslate"><span class="pre">fn3</span></code> returns).</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">fn1 returns…</span><a class="headerlink" href="#id3" title="Link to this code"></a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Finally</span>
+  <span class="n">Something</span> <span class="k">else</span> <span class="o">&lt;</span><span class="n">arg1</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">final output…</span><a class="headerlink" href="#id4" title="Link to this code"></a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Finally</span>
+  <span class="n">Something</span> <span class="k">else</span> <span class="n">My</span> <span class="n">first</span> <span class="n">arg</span> <span class="ow">is</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">fn3</span>
+</pre></div>
+</div>
+</div>
+<section id="whitespace">
+<h2>Whitespace<a class="headerlink" href="#whitespace" title="Link to this heading"></a></h2>
+<p>Whitespace is trimmed when the macro name and arguments are identified.</p>
+<p>No whitespace it trimmed from macro return values.</p>
+<section id="macro-names">
+<h3>Macro Names<a class="headerlink" href="#macro-names" title="Link to this heading"></a></h3>
+<p>It if common for Foundry macro names to contain spaces. To allow for this you can include the macro name in quotes (single of double).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="s2">&quot;A Macro Name&quot;</span> <span class="o">|</span> <span class="n">arg1</span> <span class="p">}}</span>
+</pre></div>
+</div>
+<p>Here the macro named <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">Macro</span> <span class="pre">Name</span></code> will be called, passing <code class="docutils literal notranslate"><span class="pre">arg1</span></code> as the single argument.</p>
+<p>The space either side of <code class="docutils literal notranslate"><span class="pre">arg1</span></code> will be ignored and excluded from final output.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Power Journal Enrich Preprocess documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="macro_arguments.html" class="btn btn-neutral float-right" title="Macro Arguments" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Ulenar of Mondarth.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

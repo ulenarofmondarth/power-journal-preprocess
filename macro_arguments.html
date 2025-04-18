@@ -1,0 +1,165 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Macro Arguments &mdash; PJE Preprocess 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=01f34227"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Internal macros" href="internal_macros.html" />
+    <link rel="prev" title="Macro Expansion" href="macro_expansion.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PJE Preprocess
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="macro_expansion.html">Macro Expansion</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Macro Arguments</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#argument-separator">Argument separator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#complex-separators">Complex Separators</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="internal_macros.html">Internal macros</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PJE Preprocess</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Macro Arguments</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/macro_arguments.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="macro-arguments">
+<h1>Macro Arguments<a class="headerlink" href="#macro-arguments" title="Link to this heading"></a></h1>
+<section id="argument-separator">
+<h2>Argument separator<a class="headerlink" href="#argument-separator" title="Link to this heading"></a></h2>
+<p>The first non-space character after the macro name is assumed to be the argument separator (unless it is a single or double quote, see <a class="reference internal" href="#complex-separators"><span class="std std-ref">Complex Separators</span></a>)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span> <span class="n">fn1</span> <span class="o">|</span> <span class="n">arg1</span> <span class="o">|</span> <span class="n">arg2</span> <span class="p">}}</span>
+
+<span class="p">{{</span> <span class="n">fn2</span> <span class="p">,</span><span class="n">arg1</span><span class="p">,</span><span class="n">arg2</span><span class="p">}}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">fn1</span></code> has two arguments separated by the <code class="docutils literal notranslate"><span class="pre">|</span></code> character.</p>
+<p><code class="docutils literal notranslate"><span class="pre">fn2</span></code> has two arguments separated by the <code class="docutils literal notranslate"><span class="pre">,</span></code> character.</p>
+<section id="complex-separators">
+<span id="id1"></span><h3>Complex Separators<a class="headerlink" href="#complex-separators" title="Link to this heading"></a></h3>
+<p>Because macros expand fully into their parent before arguments are identified it can be difficult to choose a single character argument separator.</p>
+<p class="rubric">Example</p>
+<p>Suppose the <code class="docutils literal notranslate"><span class="pre">page</span></code> macro expands a page into the current context. There is no reliable way to ensure that the <code class="docutils literal notranslate"><span class="pre">|</span></code> character (or any single character) will not appear in the resulting text so the following may not expand as expected.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="s2">&quot;My Macro&quot;</span> <span class="o">|</span> <span class="p">{{</span><span class="n">page</span> <span class="o">|</span> <span class="n">SomeUUID</span> <span class="p">}}</span> <span class="o">|</span> <span class="n">arg2</span> <span class="p">}}</span>
+</pre></div>
+</div>
+<p>If the page as <code class="docutils literal notranslate"><span class="pre">SomeUUID</span></code> expands and contains a <code class="docutils literal notranslate"><span class="pre">|</span></code> then <code class="docutils literal notranslate"><span class="pre">My</span> <span class="pre">Macro</span></code> will get more than the two arguments it expects.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">page</span></code> macro itself will work fine as the <code class="docutils literal notranslate"><span class="pre">|</span></code> will have already served its purpose before the expansion occurs.</p>
+</div>
+<p>To work around these cases you can specify a more complex (and hopefully unique) separator using a quoted string or a <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions">regex</a> (enclosed in <code class="docutils literal notranslate"><span class="pre">//</span></code>).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="s2">&quot;My Macro&quot;</span> <span class="s2">&quot;-Sep-&quot;</span> <span class="p">{{</span><span class="n">page</span> <span class="o">|</span> <span class="n">SomeUUID</span><span class="p">}}</span> <span class="o">-</span><span class="n">Sep</span><span class="o">-</span> <span class="n">arg2</span> <span class="p">}}</span>
+
+<span class="p">{{</span><span class="s2">&quot;My Macro&quot;</span> <span class="o">/-</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span><span class="o">/</span> <span class="p">{{</span><span class="n">page</span> <span class="o">|</span> <span class="n">SomeUUID</span><span class="p">}}</span> <span class="o">---</span> <span class="n">arg2</span> <span class="p">}}</span>
+</pre></div>
+</div>
+<p>Here the <code class="docutils literal notranslate"><span class="pre">&quot;-Sep-&quot;</span></code> specifies the string <code class="docutils literal notranslate"><span class="pre">-Sep-</span></code> is used to separate arguments in this macro. The second example specifies a regular expression <code class="docutils literal notranslate"><span class="pre">-{3}</span></code>, to three <code class="docutils literal notranslate"><span class="pre">-</span></code> characters are considered to be an argument separator.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Subsequent separators are not quoted.</p>
+</div>
+<p>Technically this separator specifier is taken to be a <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions">regex</a>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Another way around this is to defer to standard enrichers. In the case of expandind a page we can use the <a class="reference external" href="https://github.com/Lyynix/MoreJournalEnrichers/wiki/Enricher_Journal#page">Page</a> enricher from <a class="reference external" href="https://foundryvtt.com/packages/lyynix-more-journal-enrichers">Lyynix: More Journal Enrichers</a> package.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="s2">&quot;My Macro&quot;</span> <span class="o">|</span> <span class="nd">@Page</span><span class="p">[</span><span class="n">SomeUUID</span><span class="p">]</span> <span class="p">}}</span>
+</pre></div>
+</div>
+<p>This <em>does not</em> expand the page into the <code class="docutils literal notranslate"><span class="pre">My</span> <span class="pre">Macro</span></code> arguments. The string <code class="docutils literal notranslate"><span class="pre">&#64;Page[SomeUUID]</span></code> is passed to <code class="docutils literal notranslate"><span class="pre">My</span> <span class="pre">Macro</span></code> and will only be expanded if it is output by <code class="docutils literal notranslate"><span class="pre">My</span> <span class="pre">Macro</span></code>. Remember, the enrichers are run on the output after this preprocessor runs.</p>
+<p>So, if <code class="docutils literal notranslate"><span class="pre">My</span> <span class="pre">Macro</span></code> needs to operate on the content of the page use the complex separator. If <code class="docutils literal notranslate"><span class="pre">My</span> <span class="pre">Macro</span></code> simple determines if <code class="docutils literal notranslate"><span class="pre">&#64;Page[SomeUUID]</span></code> is included in the output or not then use the enricher method.</p>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="macro_expansion.html" class="btn btn-neutral float-left" title="Macro Expansion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="internal_macros.html" class="btn btn-neutral float-right" title="Internal macros" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Ulenar of Mondarth.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
