@@ -26,6 +26,14 @@ function _expand(content: string, macroLookup: MacroLookup = standardMacroLookup
 
     if (openMacro >= 0 || closeMacro >= 0) {
       if (closeMacro >= 0 && (openMacro < 0 || closeMacro < openMacro)) {
+        if (depth === 0) {
+          errors.push(localize('MON-PJE.ERROR.toomanyclose'));
+          return {
+            expanded: `${expanded}${remaining}`,
+            remaining: '',
+            errors,
+          };
+        }
         const [fn, args]: [string, string[]] = parseMacroBlock(expanded.concat(remaining.slice(0, closeMacro)));
         const rollback = remaining;
         remaining = remaining.slice(closeMacro + 2);
@@ -52,7 +60,7 @@ function _expand(content: string, macroLookup: MacroLookup = standardMacroLookup
             errors,
           };
         } else {
-          errors.push(localize('MON-PJE.ERROR.toomanycloses'));
+          errors.push(localize('MON-PJE.ERROR.badfunc'));
           expanded = rollback;
           remaining = '';
         }

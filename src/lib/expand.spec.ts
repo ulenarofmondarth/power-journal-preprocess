@@ -108,6 +108,13 @@ describe('expand', () => {
     expect(expand(content)).toEqual(correctResult);
   });
 
+  it('reports when bad function specified', () => {
+    const content = 'if 2==2 {{badfunc }}';
+    const correctResult = 'MON-PJE.ERROR.badfunc';
+
+    expect(expand(content)).toContain(correctResult);
+  });
+
   it('returns original content if it contains no macros', () => {
     const content = 'original with no expansion';
 
