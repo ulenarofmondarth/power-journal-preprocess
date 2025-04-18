@@ -4,7 +4,8 @@
       "badfunc": "Unrecognised macro function",
       "badifcond": "Error in 'if' condition, see console for details",
       "toomanycloses": "Too many }}",
-      "expectedclose": "Expected }}"
+      "expectedclose": "Expected }}",
+      "badvarlookup": "Failed to recall variable"
     }
   }
 }
