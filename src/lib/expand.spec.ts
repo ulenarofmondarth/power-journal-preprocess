@@ -87,6 +87,27 @@ describe('expand', () => {
     expect(expand(content)).toContain(correctResult);
   });
 
+  it('complex separator string recognised', () => {
+    const content = 'if 2==2 {{if "-s-" 2==2 -s- isTrue-s-isFalse}}';
+    const correctResult = 'if 2==2 isTrue';
+
+    expect(expand(content)).toEqual(correctResult);
+  });
+
+  it('complex separator regex recognised', () => {
+    const content = 'if 2==2 {{if /-{3}/ 2==2 --- isTrue---isFalse}}';
+    const correctResult = 'if 2==2 isTrue';
+
+    expect(expand(content)).toEqual(correctResult);
+  });
+
+  it('complex separator recognised with context', () => {
+    const content = 'if 2==2 {{if "-s-" {{ if | 1==2 | isTrue | 2==2}} -s- isTrue-s-isFalse}}';
+    const correctResult = 'if 2==2 isTrue';
+
+    expect(expand(content)).toEqual(correctResult);
+  });
+
   it('returns original content if it contains no macros', () => {
     const content = 'original with no expansion';
 

@@ -66,7 +66,6 @@ function _expand(content: string, macroLookup: MacroLookup = standardMacroLookup
           remaining = '';
         } else {
           remaining = expansion.expanded.concat(expansion.remaining);
-          console.log(`exp "${expanded}" rem "${remaining}"`);
         }
       }
     } else {
@@ -91,14 +90,24 @@ function _expand(content: string, macroLookup: MacroLookup = standardMacroLookup
 function parseMacroBlock(block: string): [string, string[]] {
   let remainingBlock = block.trim();
   let fn = remainingBlock.match(/^(((["']).*?(?<!\\)\3)|[^"']\S*)/)?.[0];
+  let args: string[] = [];
+
   remainingBlock = remainingBlock.slice(fn?.length).trim();
   fn = fn?.replace(/^["']/, '').replace(/["']$/, '');
   if (!fn) {
     return ['', []];
   }
-  const separator = remainingBlock[0];
-  remainingBlock = remainingBlock.slice(1);
-  const args = remainingBlock.split(separator);
+  let separator = remainingBlock.match(/^\s*((([/"']).*?(?<!\\)\3)|[^"'])/)?.[0];
+  if (separator) {
+    const isRegex = separator.length > 1 && separator[0] === '/';
+    remainingBlock = remainingBlock.slice(separator.length).trim();
+    separator = separator.replace(/^[/"']/, '').replace(/[/"']$/, '');
+    if (isRegex) {
+      args = remainingBlock.split(new RegExp(separator));
+    } else {
+      args = remainingBlock.split(separator);
+    }
+  }
 
   return [fn.trim(), args.map(a => a.trim())];
 }
