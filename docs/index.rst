@@ -31,3 +31,6 @@ A ``fn`` can be:
    :maxdepth: 2
    :caption: Contents:
 
+   macro_expansion.rst
+   macro_arguments.rst
+   internal_macros.rst
