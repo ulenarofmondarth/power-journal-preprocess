@@ -3,7 +3,8 @@
     "ERROR": {
       "badfunc": "Unrecognised macro function",
       "badifcond": "Error in 'if' condition, see console for details",
-      "toomanycloses": "Too many }}"
+      "toomanycloses": "Too many }}",
+      "expectedclose": "Expected }}"
     }
   }
 }

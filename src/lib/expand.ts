@@ -26,17 +26,15 @@ function _expand(content: string, macroLookup: MacroLookup = standardMacroLookup
 
     if (openMacro >= 0 || closeMacro >= 0) {
       if (closeMacro >= 0 && (openMacro < 0 || closeMacro < openMacro)) {
-        const [fn, args]: [string, string[]] = parseMacroBlock(
-          expanded.concat(remaining.slice(0, closeMacro)),
-        );
-        const n = remaining;
+        const [fn, args]: [string, string[]] = parseMacroBlock(expanded.concat(remaining.slice(0, closeMacro)));
+        const rollback = remaining;
         remaining = remaining.slice(closeMacro + 2);
         if (!fn) {
           errors.push(localize('MON-PJE.ERROR.badfunc'));
           return {
             expanded,
             remaining,
-            errors
+            errors,
           };
         }
         const macro: undefined | Macro = macroLookup(fn);
@@ -51,28 +49,30 @@ function _expand(content: string, macroLookup: MacroLookup = standardMacroLookup
           return {
             expanded,
             remaining,
-            errors
+            errors,
           };
         } else {
           errors.push(localize('MON-PJE.ERROR.toomanycloses'));
-          expanded = n;
+          expanded = rollback;
           remaining = '';
         }
       } else {
         const prolog = remaining.slice(0, openMacro);
         const expansion = _expand(remaining.slice(openMacro + 2), macroLookup, depth + 1);
+        expanded = expanded.concat(prolog);
         if (expansion.errors.length > 0) {
           errors.push(...expansion.errors);
-          expanded = remaining.slice(openMacro);
+          expanded = expanded.concat(remaining.slice(openMacro));
           remaining = '';
         } else {
-          expanded = expanded.concat(prolog, expansion.expanded);
-          remaining = expansion.remaining;
+          remaining = expansion.expanded.concat(expansion.remaining);
+          console.log(`exp "${expanded}" rem "${remaining}"`);
         }
       }
     } else {
       if (depth > 0 && remaining.search(/}}/) < 0) {
         // we expect }} to close the expansion, if missing...
+        errors.push(localize('MON-JRE.ERROR.expectedclose'));
         expanded = '{{'.concat(expanded);
       }
 
@@ -84,7 +84,7 @@ function _expand(content: string, macroLookup: MacroLookup = standardMacroLookup
   return {
     expanded,
     remaining,
-    errors
+    errors,
   };
 }
 
