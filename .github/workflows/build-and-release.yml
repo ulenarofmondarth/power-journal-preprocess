@@ -32,12 +32,12 @@ jobs:
 
 
     steps:
-    - uses: pnpm/action-setup@v4
-    - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
+    - uses: actions/checkout@v4
       with:
         node-version: 22.x
         cache: "pnpm"
+    - uses: pnpm/action-setup@v4
 
     - name: Dump
       env:
