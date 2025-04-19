@@ -1,3 +1,4 @@
 [tool.commitizen]
 version = "0.2.2"
 version_files = ["package.json:version", "docs/conf.py:release"]
+tag_format = "v${version}"
