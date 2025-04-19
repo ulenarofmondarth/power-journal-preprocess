@@ -1,3 +1,9 @@
+## 0.2.1 (2025-04-19)
+
+### Fix
+
+- **ci**: cache the documentation package
+
 ## 0.2.0 (2025-04-19)
 
 ### Feat
