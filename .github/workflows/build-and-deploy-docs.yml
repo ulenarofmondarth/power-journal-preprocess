@@ -2,10 +2,14 @@ name: Build and Deploy Docs
 on:
   workflow_call:
   push:
+    branches:
+    - main
 
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+concurrency:
+  group: generate-docs
 jobs:
   build:
     runs-on: ubuntu-latest
