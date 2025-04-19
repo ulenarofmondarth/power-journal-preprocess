@@ -2,8 +2,6 @@ name: Build and Release Module and Documentation
 
 on:
   push:
-    branches:
-    - main
     tags: [ "v*" ]
     paths-ignore:
     - "docs/**"
@@ -32,8 +30,8 @@ jobs:
 
 
     steps:
-    - uses: actions/setup-node@v4
     - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
       with:
         node-version: 22.x
         cache: "pnpm"
@@ -78,8 +76,8 @@ jobs:
       with:
         workflow: build-and-deploy-docs.yml
         workflow_conclusion: success
-        name: documentation-${{ github.sha }}
-        path: ${{ github.workspace }}/documentation-${{ github.sha }}
+        name: documentation-${{ github.ref_name }}
+        path: ${{ github.workspace }}/documentation-${{ github.ref_name }}
         search_artifacts: true
 
     - name: Recover Release Data
