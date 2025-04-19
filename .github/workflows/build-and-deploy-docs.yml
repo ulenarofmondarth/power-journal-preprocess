@@ -1,5 +1,8 @@
 name: Build and Deploy Docs
-on: push
+on:
+  workflow_call:
+  push:
+
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
