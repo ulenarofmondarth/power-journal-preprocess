@@ -1,7 +1,7 @@
 Power Journal Enrich Preprocess documentation
 =============================================
 
-This is a generalized pre-processor for Foundry VTT ``enhanceHTML``, standard enrich functinality remains unchanged and is performed *after* this preprocessing.
+This is a generalized pre-processor for Foundry VTT ``enrichHTML``, standard enrich functinality remains unchanged and is performed *after* this preprocessing.
 
 Basic form
 ----------
