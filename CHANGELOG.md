@@ -32,6 +32,12 @@
 - simplify code
 - prepare for render and better error handling
 
+## v0.4.0 (2025-04-21)
+
+### Feat
+
+- **macros**: adds ability to invoke Foundry macros by name
+
 ## v0.3.0 (2025-04-19)
 
 ### Feat
