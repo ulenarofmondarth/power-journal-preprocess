@@ -34,3 +34,4 @@ A ``fn`` can be:
    macro_expansion.rst
    macro_arguments.rst
    internal_macros.rst
+   fvtt_macros.rst

@@ -12,7 +12,7 @@ export interface MacroResult {
 
 export type Macro = (...args: string[]) => MacroResult;
 export type MacroLookup = (name: string) => undefined | Macro;
-export type MacroTable = Record<string, Macro>;
+export type MacroTable = Map<string, Macro>;
 
 const macrotables: MacroTable[] = [];
 
@@ -22,7 +22,7 @@ function standardMacroLookup(name: string): undefined | Macro {
   let macro;
 
   for (const macroTable of macrotables) {
-    macro = macroTable[name];
+    macro = macroTable.get(name);
     if (typeof macro === 'function') break;
   }
   return macro;
@@ -30,8 +30,8 @@ function standardMacroLookup(name: string): undefined | Macro {
 
 function addMacroTable(table: MacroTable) {
   if (!macrotables.includes(table)) {
-    macrotables.push(table);
+    macrotables.unshift(table);
   }
 }
 
-export { standardMacroLookup };
+export { addMacroTable, standardMacroLookup };

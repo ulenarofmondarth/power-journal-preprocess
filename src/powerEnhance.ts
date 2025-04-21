@@ -1,5 +1,7 @@
 import { MODULE_ID } from '@lib/constants';
 import { expand } from '@lib/expand';
+import { addMacroTable } from '@lib/standardMacroLookup';
+import FVTT_MacroTable from '@lib/fvtt/macroTable';
 
 export function powerEnhance() {
   game.settings.register(MODULE_ID, 'variables', {
@@ -8,6 +10,8 @@ export function powerEnhance() {
     type: Object,
     default: {},
   });
+
+  addMacroTable(new FVTT_MacroTable());
 
   libWrapper.register(
     MODULE_ID,
