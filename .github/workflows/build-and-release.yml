@@ -74,7 +74,6 @@ jobs:
     - name: Recover Documentation Package
       uses: dawidd6/action-download-artifact@v6
       with:
-        workflow: build-and-deploy-docs.yml
         workflow_conclusion: success
         name: documentation-${{ github.ref_name }}
         path: ${{ github.workspace }}/documentation-${{ github.ref_name }}
