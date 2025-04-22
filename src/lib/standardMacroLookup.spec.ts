@@ -16,7 +16,8 @@ describe('standardMacroLookup', () => {
       addMacroTable(new FVTT_MacroTable.default());
     });
 
-    it('finds a foundryvtt macro by name', async () => {
+    // This tests the wrapper, the integration/e2e tests are needed to test the actual Foundry interaction
+    it('finds a foundryvtt macro by name/UUID', async () => {
       const macrotableSpy = vi
         .spyOn(FVTT_MacroTable.default.prototype, 'get')
         .mockReturnValue(() => ({ result: 'test', errors: [] }));

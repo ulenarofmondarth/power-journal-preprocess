@@ -2,9 +2,9 @@ import type { Macro, MacroResult } from '../standardMacroLookup';
 
 class MacroTable extends Map<string, Macro> {
   get(name: string): undefined | Macro {
-    const fvttMacro = game.macros?.getName(name);
+    const fvttMacro = game.macros?.getName(name) || fromUuidSync(name);
 
-    if (fvttMacro) {
+    if (fvttMacro instanceof Macro) {
       return (...args: string[]): MacroResult => {
         try {
           const fvttReturn = new Function('scope', `"use strict";${fvttMacro.command};`)({ args });
@@ -26,6 +26,11 @@ class MacroTable extends Map<string, Macro> {
     }
 
     return undefined;
+  }
+
+  has(name: string): boolean {
+    const fvttMacro = game.macros?.getName(name) || fromUuidSync(name);
+    return fvttMacro instanceof Macro;
   }
 }
 

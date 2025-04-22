@@ -19,7 +19,7 @@ Define a macro in Foundry named ``My Macro``.
      return { result: 'No name', errors: ['No name provided']}
    }
 
-.. important:: Macros called from Power Journal *must* be synchronous.
+.. important:: Macros called from Power Journal Preprocess *must* be synchronous.
 
 All arguments are passed to the macro via the ``scope.args`` field, a ``string[]``.
 
@@ -40,3 +40,20 @@ This macro is invoked as any other macro.
    :caption: Output
 
    My name is Ulenar of Mondarth
+
+Using UUID
+----------
+
+Macros can also be referenced by their UUID.
+
+.. code-block::
+
+   {{Compendium.world.some-comp.Macro.ugYqzfXjn81JQ1U2 | Tess}}
+
+Assuming we put the ``My Macro`` macro into a compendium this preprocess kacro will use that compendium version and the output will be as follows.
+
+.. code-block::
+   :caption: Output
+
+   My name is Tess
+
