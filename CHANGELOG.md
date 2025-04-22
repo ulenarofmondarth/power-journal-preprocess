@@ -32,6 +32,12 @@
 - simplify code
 - prepare for render and better error handling
 
+## v0.6.0 (2025-04-22)
+
+### Feat
+
+- **expand**: limits function expansions
+
 ## v0.5.0 (2025-04-22)
 
 ### Feat
