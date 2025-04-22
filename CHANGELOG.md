@@ -32,6 +32,12 @@
 - simplify code
 - prepare for render and better error handling
 
+## v0.5.0 (2025-04-22)
+
+### Feat
+
+- adds macro looklp by UUID
+
 ## v0.4.0 (2025-04-21)
 
 ### Feat
