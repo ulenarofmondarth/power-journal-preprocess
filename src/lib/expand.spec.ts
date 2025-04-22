@@ -1,9 +1,11 @@
 import { describe, it, expect, afterEach, vi } from 'vitest';
 
-import { expand } from './expand';
 import { localize } from '@lib/helpers';
+import * as SML from '@lib/standardMacroLookup';
 
-vi.mock('@lib/helpers');
+import { expand } from './expand';
+
+vi.mock('./helpers');
 
 describe('expand', () => {
   afterEach(() => {
@@ -120,4 +122,13 @@ describe('expand', () => {
 
     expect(expand(content)).toEqual(content);
   });
+
+  it('limits the number of times the same expansion function can run', async () => {
+    const content = `{{ runaway }}`;
+    const spy = vi.spyOn(SML, 'standardMacroLookup').mockReturnValue(() => ({ result: content, errors: [] }));
+
+    expand(content);
+
+    expect(spy).toHaveBeenCalledTimes(100);
+  }, 5000);
 });

@@ -5,7 +5,8 @@
       "badifcond": "Error in 'if' condition, see console for details",
       "toomanycloses": "Too many }}",
       "expectedclose": "Expected }}",
-      "badvarlookup": "Failed to recall variable"
+      "badvarlookup": "Failed to recall variable",
+      "abortedrunawaymacro": "Aborted macro expansion. Looks like a runaway expansion."
     }
   }
 }

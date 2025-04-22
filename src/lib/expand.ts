@@ -1,7 +1,7 @@
-import { localize } from './helpers';
-import { standardMacroLookup } from './standardMacroLookup';
+import { localize } from '@lib/helpers';
+import { standardMacroLookup } from '@lib/standardMacroLookup';
 
-import type { Macro, MacroLookup } from './standardMacroLookup';
+import type { Macro, MacroLookup } from '@lib/standardMacroLookup';
 
 export interface ExpandedContent {
   expanded: string;
@@ -9,13 +9,20 @@ export interface ExpandedContent {
   errors: string[];
 }
 
+const MAX_FUNCTION_EXPANSIONS = 100;
+
 function expand(content: string, macroLookup: MacroLookup = standardMacroLookup): string {
   const result = _expand(content, macroLookup);
   const errors = result.errors.length ? JSON.stringify(result.errors) : '';
   return `${result.expanded}${errors}`;
 }
 
-function _expand(content: string = '', macroLookup: MacroLookup = standardMacroLookup, depth = 0): ExpandedContent {
+function _expand(
+  content: string = '',
+  macroLookup: MacroLookup = standardMacroLookup,
+  depth: number = 0,
+  functionCounts: Record<string, number> = {},
+): ExpandedContent {
   let expanded = '';
   let remaining = content;
   const errors: string[] = [];
@@ -35,6 +42,15 @@ function _expand(content: string = '', macroLookup: MacroLookup = standardMacroL
           };
         }
         const [fn, args]: [string, string[]] = parseMacroBlock(expanded.concat(remaining.slice(0, closeMacro)));
+        functionCounts[fn] = functionCounts[fn] + 1 || 1;
+        if (functionCounts[fn] > MAX_FUNCTION_EXPANSIONS) {
+          errors.push(localize('MON-PJE.ERROR.abortedrunawaymacro'));
+          return {
+            expanded,
+            remaining: '',
+            errors,
+          };
+        }
         const rollback = remaining;
         remaining = remaining.slice(closeMacro + 2);
         if (!fn) {
@@ -66,7 +82,7 @@ function _expand(content: string = '', macroLookup: MacroLookup = standardMacroL
         }
       } else {
         const prolog = remaining.slice(0, openMacro);
-        const expansion = _expand(remaining.slice(openMacro + 2), macroLookup, depth + 1);
+        const expansion = _expand(remaining.slice(openMacro + 2), macroLookup, depth + 1, functionCounts);
         expanded = expanded.concat(prolog);
         if (expansion.errors.length > 0) {
           errors.push(...expansion.errors);
