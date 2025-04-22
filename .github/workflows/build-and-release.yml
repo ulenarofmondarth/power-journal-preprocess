@@ -71,14 +71,6 @@ jobs:
     - name: Bundle into ZIP file
       run: zip -r ./module.zip module.json assets/ dist/ lang/ packs/ LICENSE
 
-    - name: Recover Documentation Package
-      uses: dawidd6/action-download-artifact@v6
-      with:
-        workflow_conclusion: success
-        name: documentation-${{ github.ref_name }}
-        path: ${{ github.workspace }}/documentation-${{ github.ref_name }}
-        search_artifacts: true
-
     - name: Recover Release Data
       uses: dawidd6/action-download-artifact@v6
       with:
