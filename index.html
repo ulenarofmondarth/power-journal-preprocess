@@ -96,6 +96,32 @@
 <li><p>A module function that has registered with PJE</p></li>
 <li><p>One of the built in functions</p></li>
 </ul>
+</section>
+<section id="limitations">
+<h2>Limitations<a class="headerlink" href="#limitations" title="Link to this heading"></a></h2>
+<p>These preprocess steps are only executed when HTML is first rendered.</p>
+<p>This means that, for example, a journal page may need to be reloaded to get the correct state. Suppose your page contained the following.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span> <span class="k">if</span> <span class="o">|</span> <span class="p">{{</span><span class="n">var</span><span class="p">:</span> <span class="n">fightHappened</span> <span class="p">}}</span> <span class="o">|</span> <span class="n">The</span> <span class="n">fight</span> <span class="n">happened</span><span class="o">.</span> <span class="o">|</span> <span class="n">The</span> <span class="n">fight</span> <span class="n">has</span> <span class="n">yet</span> <span class="n">to</span> <span class="n">happen</span><span class="o">.</span> <span class="p">}}</span>
+</pre></div>
+</div>
+<p>Assuming the <code class="docutils literal notranslate"><span class="pre">fightHappened</span></code> variable is <code class="docutils literal notranslate"><span class="pre">false</span></code> when we first open the journal we will see <code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">fight</span> <span class="pre">has</span> <span class="pre">yet</span> <span class="pre">to</span> <span class="pre">happen.</span></code>. In another dialog the variable is updated and is now <code class="docutils literal notranslate"><span class="pre">true</span></code>, the open journal page will not change. To get the journal page to update you need to re-render it (open and close the journal, switch to another page and back, etc.).</p>
+</section>
+<section id="issues">
+<h2>Issues<a class="headerlink" href="#issues" title="Link to this heading"></a></h2>
+<p>You can create runaway expansions, the pre-processor does only very simple tracking of expansions. The following would cause problems.</p>
+<p>Define a macro <code class="docutils literal notranslate"><span class="pre">deep</span></code>.</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">deep</span><a class="headerlink" href="#id2" title="Link to this code"></a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="s1">&#39;{{ deep }}&#39;</span>
+</pre></div>
+</div>
+</div>
+<p>And create a journal page containing <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">deep</span> <span class="pre">}}</span></code>. <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">deep</span> <span class="pre">}}</span></code> will expand to <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">deep</span> <span class="pre">}}</span></code>, which will be processed… Well, hopefully you see the problem.</p>
+<p>To mitigate this problem there is a limit to the number of times any one function can be expanded in any given preprocess run. Currently <code class="docutils literal notranslate"><span class="pre">100</span></code>.</p>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>Make expansion limit a setting.</p>
+</div>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
@@ -114,7 +140,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="fvtt_macros.html">Foundry Macros</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="fvtt_macros.html#using-uuid">Using UUID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fvtt_macros.html#arguments">Arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fvtt_macros.html#return-values">Return values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fvtt_macros.html#identifying-macros">Identifying macros</a></li>
 </ul>
 </li>
 </ul>

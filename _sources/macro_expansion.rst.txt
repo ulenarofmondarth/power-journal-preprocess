@@ -3,7 +3,7 @@ Macro Expansion
 
 Macros are expanded 'deepest first'.
 
-.. code-block::
+.. code-block:: txt
 
    {{fn1 | {{fn2 | {{fn3}} }} }}
 
@@ -15,7 +15,7 @@ Macros *will* reprocess expanded text. So, if ``fn3`` in the previous example re
 
 For example:
 
-.. code-block::
+.. code-block:: txt
 
    {{ fn1 | {{ fn2 }} }}
 
@@ -26,25 +26,25 @@ Because ``{{ fn2 }}`` will expand before ``fn1``, if it returns ``arg1`` then th
 
 Suppose we have:
 
-.. code-block::
+.. code-block:: txt
    :caption: fn3 returns...
 
    This is fn3
 
-.. code-block::
+.. code-block:: txt
    :caption: fn2 returns...
 
    My first arg is <arg1>
 
 Where ``<arg1>`` is whatever appears between the ``|`` and the ``}}`` (in thise instance this will be whatever ``fn3`` returns).
 
-.. code-block::
+.. code-block:: txt
    :caption: fn1 returns...
 
    Finally
      Something else <arg1>
 
-.. code-block::
+.. code-block:: txt
    :caption: final output...
 
    Finally
@@ -62,7 +62,7 @@ Macro Names
 
 It if common for Foundry macro names to contain spaces. To allow for this you can include the macro name in quotes (single of double).
 
-.. code-block::
+.. code-block:: txt
 
    {{"A Macro Name" | arg1 }}
    

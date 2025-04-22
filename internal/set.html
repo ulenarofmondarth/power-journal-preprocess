@@ -50,7 +50,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../macro_arguments.html">Macro Arguments</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../internal_macros.html">Internal macros</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="if.html">if</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">set</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">set</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#variable-names">Variable names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#variable-values">Variable values</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="var.html">var</a></li>
 </ul>
 </li>
@@ -88,8 +92,16 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span> <span class="nb">set</span> <span class="o">|</span> <span class="n">a</span> <span class="o">|</span> <span class="n">some</span> <span class="n">value</span> <span class="p">}}</span>
 </pre></div>
 </div>
-<p>This sets the variable <code class="docutils literal notranslate"><span class="pre">a</span></code> to <code class="docutils literal notranslate"><span class="pre">some</span> <span class="pre">value</span></code>.</p>
+<p>This sets the variable <code class="docutils literal notranslate"><span class="pre">a</span></code> to <code class="docutils literal notranslate"><span class="pre">some</span> <span class="pre">value</span></code>. These variables are stored in the world (so they will persist between sessions).</p>
 <p>The macro expands to the empty string (so it is effectively removed from the output).</p>
+<section id="variable-names">
+<h2>Variable names<a class="headerlink" href="#variable-names" title="Link to this heading"></a></h2>
+<p>Variable names are simple strings. They can contain spaces but, as with any argument, spaces before/after the first non-whitespace are removed.</p>
+</section>
+<section id="variable-values">
+<h2>Variable values<a class="headerlink" href="#variable-values" title="Link to this heading"></a></h2>
+<p>All variables store their value as a string.</p>
+</section>
 </section>
 
 

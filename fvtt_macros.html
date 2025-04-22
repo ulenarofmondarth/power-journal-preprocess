@@ -49,7 +49,13 @@
 <li class="toctree-l1"><a class="reference internal" href="macro_arguments.html">Macro Arguments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="internal_macros.html">Internal macros</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Foundry Macros</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#using-uuid">Using UUID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#arguments">Arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#return-values">Return values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#identifying-macros">Identifying macros</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-a-name">Using a name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-uuid">Using UUID</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -100,9 +106,31 @@
 <p class="admonition-title">Important</p>
 <p>Macros called from Power Journal Preprocess <em>must</em> be synchronous.</p>
 </div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Foundry macros are looked up before internal macros. This means you can redefined internal macros by creating an appropirately named Foundry macro.</p>
+<p class="rubric">Example</p>
+<p>Define a Foundry macro named <code class="docutils literal notranslate"><span class="pre">if</span></code>.</p>
+<div class="highlight-txt notranslate"><div class="highlight"><pre><span></span>return &#39;override internal if&#39;
+</pre></div>
+</div>
+<p>Any use of <code class="docutils literal notranslate"><span class="pre">{{if</span> <span class="pre">}}</span></code> will expand to <code class="docutils literal notranslate"><span class="pre">override</span> <span class="pre">internal</span> <span class="pre">if</span></code> without further processing.</p>
+<p>Remove or rename the Foundry macro to restore the internal <code class="docutils literal notranslate"><span class="pre">if</span></code>.</p>
+</div>
+<section id="arguments">
+<h2>Arguments<a class="headerlink" href="#arguments" title="Link to this heading"></a></h2>
 <p>All arguments are passed to the macro via the <code class="docutils literal notranslate"><span class="pre">scope.args</span></code> field, a <code class="docutils literal notranslate"><span class="pre">string[]</span></code>.</p>
+</section>
+<section id="return-values">
+<h2>Return values<a class="headerlink" href="#return-values" title="Link to this heading"></a></h2>
 <p>You can return a simple <code class="docutils literal notranslate"><span class="pre">string</span></code>, which will be substituted into the output.</p>
 <p>You can return an object containing a <code class="docutils literal notranslate"><span class="pre">result</span></code> <code class="docutils literal notranslate"><span class="pre">string</span></code> and an <code class="docutils literal notranslate"><span class="pre">errors</span></code> <code class="docutils literal notranslate"><span class="pre">string[]</span></code>. Missing <code class="docutils literal notranslate"><span class="pre">errors</span></code> defaults to <code class="docutils literal notranslate"><span class="pre">[]</span></code> while a missing <code class="docutils literal notranslate"><span class="pre">result</span></code> defaults to <code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">result</span></code>.</p>
+</section>
+<section id="identifying-macros">
+<h2>Identifying macros<a class="headerlink" href="#identifying-macros" title="Link to this heading"></a></h2>
+<p>Foundry macros can be identified by name or UUID.</p>
+<section id="using-a-name">
+<h3>Using a name<a class="headerlink" href="#using-a-name" title="Link to this heading"></a></h3>
 <p>This macro is invoked as any other macro.</p>
 <div class="highlight-txt notranslate"><div class="highlight"><pre><span></span>{{&quot;My Macro&quot; | Ulenar of Mondarth }}
 </pre></div>
@@ -117,19 +145,21 @@
 </pre></div>
 </div>
 </div>
+</section>
 <section id="using-uuid">
-<h2>Using UUID<a class="headerlink" href="#using-uuid" title="Link to this heading"></a></h2>
+<h3>Using UUID<a class="headerlink" href="#using-uuid" title="Link to this heading"></a></h3>
 <p>Macros can also be referenced by their UUID.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="n">Compendium</span><span class="o">.</span><span class="n">world</span><span class="o">.</span><span class="n">some</span><span class="o">-</span><span class="n">comp</span><span class="o">.</span><span class="n">Macro</span><span class="o">.</span><span class="n">ugYqzfXjn81JQ1U2</span> <span class="o">|</span> <span class="n">Tess</span><span class="p">}}</span>
 </pre></div>
 </div>
-<p>Assuming we put the <code class="docutils literal notranslate"><span class="pre">My</span> <span class="pre">Macro</span></code> macro into a compendium this preprocess kacro will use that compendium version and the output will be as follows.</p>
+<p>Assuming we put the <code class="docutils literal notranslate"><span class="pre">My</span> <span class="pre">Macro</span></code> macro into a compendium this preprocess macro will use that compendium version and the output will be as follows.</p>
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption"><span class="caption-text">Output</span><a class="headerlink" href="#id3" title="Link to this code"></a></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">My</span> <span class="n">name</span> <span class="ow">is</span> <span class="n">Tess</span>
 </pre></div>
 </div>
 </div>
+</section>
 </section>
 </section>
 

@@ -86,10 +86,10 @@
 <h1>Macro Arguments<a class="headerlink" href="#macro-arguments" title="Link to this heading"></a></h1>
 <section id="argument-separator">
 <h2>Argument separator<a class="headerlink" href="#argument-separator" title="Link to this heading"></a></h2>
-<p>The first non-space character after the macro name is assumed to be the argument separator (unless it is a single or double quote, see <a class="reference internal" href="#complex-separators"><span class="std std-ref">Complex Separators</span></a>)</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span> <span class="n">fn1</span> <span class="o">|</span> <span class="n">arg1</span> <span class="o">|</span> <span class="n">arg2</span> <span class="p">}}</span>
+<p>The first non-space character after the macro name is assumed to be the argument separator (unless it is one of <code class="docutils literal notranslate"><span class="pre">'&quot;/</span></code>, see <a class="reference internal" href="#complex-separators"><span class="std std-ref">Complex Separators</span></a>)</p>
+<div class="highlight-txt notranslate"><div class="highlight"><pre><span></span>{{ fn1 | arg1 | arg2 }}
 
-<span class="p">{{</span> <span class="n">fn2</span> <span class="p">,</span><span class="n">arg1</span><span class="p">,</span><span class="n">arg2</span><span class="p">}}</span>
+{{ fn2 ,arg1,arg2}}
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">fn1</span></code> has two arguments separated by the <code class="docutils literal notranslate"><span class="pre">|</span></code> character.</p>
@@ -99,30 +99,29 @@
 <p>Because macros expand fully into their parent before arguments are identified it can be difficult to choose a single character argument separator.</p>
 <p class="rubric">Example</p>
 <p>Suppose the <code class="docutils literal notranslate"><span class="pre">page</span></code> macro expands a page into the current context. There is no reliable way to ensure that the <code class="docutils literal notranslate"><span class="pre">|</span></code> character (or any single character) will not appear in the resulting text so the following may not expand as expected.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="s2">&quot;My Macro&quot;</span> <span class="o">|</span> <span class="p">{{</span><span class="n">page</span> <span class="o">|</span> <span class="n">SomeUUID</span> <span class="p">}}</span> <span class="o">|</span> <span class="n">arg2</span> <span class="p">}}</span>
+<div class="highlight-txt notranslate"><div class="highlight"><pre><span></span>{{&quot;My Macro&quot; | {{page | SomeUUID }} | arg2 }}
 </pre></div>
 </div>
-<p>If the page as <code class="docutils literal notranslate"><span class="pre">SomeUUID</span></code> expands and contains a <code class="docutils literal notranslate"><span class="pre">|</span></code> then <code class="docutils literal notranslate"><span class="pre">My</span> <span class="pre">Macro</span></code> will get more than the two arguments it expects.</p>
+<p>If the page at <code class="docutils literal notranslate"><span class="pre">SomeUUID</span></code> expands and contains a <code class="docutils literal notranslate"><span class="pre">|</span></code> then <code class="docutils literal notranslate"><span class="pre">My</span> <span class="pre">Macro</span></code> will get more than the two arguments it expects (additional arguments will be passed to <code class="docutils literal notranslate"><span class="pre">My</span> <span class="pre">Macro</span></code> but it may not process them).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">page</span></code> macro itself will work fine as the <code class="docutils literal notranslate"><span class="pre">|</span></code> will have already served its purpose before the expansion occurs.</p>
 </div>
 <p>To work around these cases you can specify a more complex (and hopefully unique) separator using a quoted string or a <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions">regex</a> (enclosed in <code class="docutils literal notranslate"><span class="pre">//</span></code>).</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="s2">&quot;My Macro&quot;</span> <span class="s2">&quot;-Sep-&quot;</span> <span class="p">{{</span><span class="n">page</span> <span class="o">|</span> <span class="n">SomeUUID</span><span class="p">}}</span> <span class="o">-</span><span class="n">Sep</span><span class="o">-</span> <span class="n">arg2</span> <span class="p">}}</span>
+<div class="highlight-txt notranslate"><div class="highlight"><pre><span></span>{{&quot;My Macro&quot; &quot;-Sep-&quot; {{page | SomeUUID}} -Sep- arg2 }}
 
-<span class="p">{{</span><span class="s2">&quot;My Macro&quot;</span> <span class="o">/-</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span><span class="o">/</span> <span class="p">{{</span><span class="n">page</span> <span class="o">|</span> <span class="n">SomeUUID</span><span class="p">}}</span> <span class="o">---</span> <span class="n">arg2</span> <span class="p">}}</span>
+{{&quot;My Macro&quot; /-{3}/ {{page | SomeUUID}} --- arg2 }}
 </pre></div>
 </div>
-<p>Here the <code class="docutils literal notranslate"><span class="pre">&quot;-Sep-&quot;</span></code> specifies the string <code class="docutils literal notranslate"><span class="pre">-Sep-</span></code> is used to separate arguments in this macro. The second example specifies a regular expression <code class="docutils literal notranslate"><span class="pre">-{3}</span></code>, to three <code class="docutils literal notranslate"><span class="pre">-</span></code> characters are considered to be an argument separator.</p>
+<p>Here the <code class="docutils literal notranslate"><span class="pre">&quot;-Sep-&quot;</span></code> specifies the string <code class="docutils literal notranslate"><span class="pre">-Sep-</span></code> is used to separate arguments in this macro. The second example specifies a regular expression <code class="docutils literal notranslate"><span class="pre">-{3}</span></code>, so three <code class="docutils literal notranslate"><span class="pre">-</span></code> characters are considered to be an argument separator.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Subsequent separators are not quoted.</p>
 </div>
-<p>Technically this separator specifier is taken to be a <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions">regex</a>.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Another way around this is to defer to standard enrichers. In the case of expandind a page we can use the <a class="reference external" href="https://github.com/Lyynix/MoreJournalEnrichers/wiki/Enricher_Journal#page">Page</a> enricher from <a class="reference external" href="https://foundryvtt.com/packages/lyynix-more-journal-enrichers">Lyynix: More Journal Enrichers</a> package.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="s2">&quot;My Macro&quot;</span> <span class="o">|</span> <span class="nd">@Page</span><span class="p">[</span><span class="n">SomeUUID</span><span class="p">]</span> <span class="p">}}</span>
+<div class="highlight-txt notranslate"><div class="highlight"><pre><span></span>{{&quot;My Macro&quot; | @Page[SomeUUID] }}
 </pre></div>
 </div>
 <p>This <em>does not</em> expand the page into the <code class="docutils literal notranslate"><span class="pre">My</span> <span class="pre">Macro</span></code> arguments. The string <code class="docutils literal notranslate"><span class="pre">&#64;Page[SomeUUID]</span></code> is passed to <code class="docutils literal notranslate"><span class="pre">My</span> <span class="pre">Macro</span></code> and will only be expanded if it is output by <code class="docutils literal notranslate"><span class="pre">My</span> <span class="pre">Macro</span></code>. Remember, the enrichers are run on the output after this preprocessor runs.</p>

@@ -27,6 +27,37 @@ A ``fn`` can be:
 - A module function that has registered with PJE
 - One of the built in functions
 
+Limitations
+-----------
+
+These preprocess steps are only executed when HTML is first rendered.
+
+This means that, for example, a journal page may need to be reloaded to get the correct state. Suppose your page contained the following.
+
+.. code-block::
+
+   {{ if | {{var: fightHappened }} | The fight happened. | The fight has yet to happen. }}
+
+Assuming the ``fightHappened`` variable is ``false`` when we first open the journal we will see ``The fight has yet to happen.``. In another dialog the variable is updated and is now ``true``, the open journal page will not change. To get the journal page to update you need to re-render it (open and close the journal, switch to another page and back, etc.).
+
+Issues
+------
+
+You can create runaway expansions, the pre-processor does only very simple tracking of expansions. The following would cause problems.
+
+Define a macro ``deep``.
+
+.. code-block::
+   :caption: deep
+
+   return '{{ deep }}'
+
+And create a journal page containing ``{{ deep }}``. ``{{ deep }}`` will expand to ``{{ deep }}``, which will be processed... Well, hopefully you see the problem.
+
+To mitigate this problem there is a limit to the number of times any one function can be expanded in any given preprocess run. Currently ``100``.
+
+.. todo:: Make expansion limit a setting.
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
