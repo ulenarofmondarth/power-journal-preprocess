@@ -4,6 +4,9 @@ import { addMacroTable } from '@lib/standardMacroLookup';
 import FVTT_MacroTable from '@lib/fvtt/macroTable';
 
 export function powerEnhance() {
+  if (!game.modules?.get('lib-wrapper')?.active && game.user?.isGM)
+    ui.notifications?.error("Module power-journal requires the 'libWrapper' module. Please install and activate it.");
+
   game.settings.register(MODULE_ID, 'variables', {
     scope: 'world',
     config: false,
