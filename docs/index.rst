@@ -22,10 +22,11 @@ These 'macros' can be nested:
 
 A ``fn`` can be:
 
-- A named macro
-- A macro UUID
-- A module function that has registered with PJE
+- A Foundry macro (either name or UUID)
+- A module function that has registered with PJE using the API.
 - One of the built in functions
+
+The above is also the order of precedence. Foundry Macro will override a module function, and both will override a built-in function.
 
 Limitations
 -----------
@@ -42,6 +43,16 @@ Assuming the ``fightHappened`` variable is ``false`` when we first open the jour
 
 Issues
 ------
+
+Macros in Compendium
+~~~~~~~~~~~~~~~~~~~~
+
+While the current pre-processor does not ban using macros via Compenidium UUID it will cause an `issue <https://github.com/ulenarofmondarth/power-journal-preprocess/issues/1>`_.
+
+Basically, these macros will not expand the first time they are rendered and you will need to reload the page they appear on. It is better to load them in to the world and use them directly.
+
+Runaway expansion
+~~~~~~~~~~~~~~~~~
 
 You can create runaway expansions, the pre-processor does only very simple tracking of expansions. The following would cause problems.
 
