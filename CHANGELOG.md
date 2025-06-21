@@ -32,6 +32,12 @@
 - simplify code
 - prepare for render and better error handling
 
+## v0.6.1 (2025-06-21)
+
+### Refactor
+
+- **index**: moves libwrapper check to init
+
 ## v0.6.0 (2025-04-22)
 
 ### Feat

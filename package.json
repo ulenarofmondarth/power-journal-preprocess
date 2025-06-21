@@ -1,6 +1,6 @@
 {
   "description": "Power Journal: Foundry VTT Journal Power Enhancements",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "license": "MIT",
   "private": true,
   "type": "module",
