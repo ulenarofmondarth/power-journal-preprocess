@@ -8,7 +8,7 @@ Recalls a world scope variable reviously set with :ref:`set <internal set macro>
 
    {{ var | a }}
 
-Expands to the value assigned to ``a`` or (if ``a`` mas not been set an empty string).
+Expands to the value assigned to ``a`` or (if ``a`` has not been set, an empty string).
 
 
 .. code-block::
