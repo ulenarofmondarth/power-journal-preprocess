@@ -1,7 +1,7 @@
 {
   "id": "mondarth-power-journal-preprocess",
-  "title": "Mondarth Power Journal Enhancement",
-  "description": "A module for journal enhancement",
+  "title": "Mondarth Power Journal Preprocess",
+  "description": "A module for journal enhancement.",
   "version": "0.0.0",
   "authors": [
     {
