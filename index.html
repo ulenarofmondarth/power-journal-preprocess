@@ -91,11 +91,11 @@
 <p><code class="docutils literal notranslate"><span class="pre">fn2</span></code> will be invoked with <code class="docutils literal notranslate"><span class="pre">arg2</span></code> as an argument. The result will inline and become the argument for <code class="docutils literal notranslate"><span class="pre">fn1</span></code>.</p>
 <p>A <code class="docutils literal notranslate"><span class="pre">fn</span></code> can be:</p>
 <ul class="simple">
-<li><p>A named macro</p></li>
-<li><p>A macro UUID</p></li>
-<li><p>A module function that has registered with PJE</p></li>
+<li><p>A Foundry macro (either name or UUID)</p></li>
+<li><p>A module function that has registered with PJE using the API.</p></li>
 <li><p>One of the built in functions</p></li>
 </ul>
+<p>The above is also the order of precedence. Foundry Macro will override a module function, and both will override a built-in function.</p>
 </section>
 <section id="limitations">
 <h2>Limitations<a class="headerlink" href="#limitations" title="Link to this heading"></a></h2>
@@ -108,6 +108,13 @@
 </section>
 <section id="issues">
 <h2>Issues<a class="headerlink" href="#issues" title="Link to this heading"></a></h2>
+<section id="macros-in-compendium">
+<h3>Macros in Compendium<a class="headerlink" href="#macros-in-compendium" title="Link to this heading"></a></h3>
+<p>While the current pre-processor does not ban using macros via Compenidium UUID it will cause an <a class="reference external" href="https://github.com/ulenarofmondarth/power-journal-preprocess/issues/1">issue</a>.</p>
+<p>Basically, these macros will not expand the first time they are rendered and you will need to reload the page they appear on. It is better to load them in to the world and use them directly.</p>
+</section>
+<section id="runaway-expansion">
+<h3>Runaway expansion<a class="headerlink" href="#runaway-expansion" title="Link to this heading"></a></h3>
 <p>You can create runaway expansions, the pre-processor does only very simple tracking of expansions. The following would cause problems.</p>
 <p>Define a macro <code class="docutils literal notranslate"><span class="pre">deep</span></code>.</p>
 <div class="literal-block-wrapper docutils container" id="id2">
@@ -147,6 +154,7 @@
 </li>
 </ul>
 </div>
+</section>
 </section>
 </section>
 
