@@ -8,7 +8,7 @@
   "contributors": [
     "Ulenaf of Mondarth <ulenarofmondarth@gmail.com>"
   ],
-  "packageManager": "pnpm@10.5.2",
+  "packageManager": "pnpm@10.11.1",
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
@@ -21,10 +21,9 @@
     "test": "vitest --typecheck --run",
     "eslint": "eslint .",
     "prepare": "husky",
-    "serve:vtt": "cd .foundryvtt && docker compose up -d",
-    "build:docs": "docker run --rm --user \"$(id -u):$(id -g)\" -v \"$(pwd)/docs\":/docs ghcr.io/ulenarofmondarth/sphinx-docs make html",
-    "serve:docs": "docker run --rm --name docserver -d -p 8080:80 -v \"$(pwd)/docs/_build/html\":/usr/share/nginx/html:ro nginx",
-    "devserve:docs": "docker run --rm --user \"$(id -u):$(id -g)\" --name docdevserver -d -p 8081:8000 -v \"$(pwd)/docs\":/doc -w /doc ghcr.io/ulenarofmondarth/sphinx-docs sphinx-autobuild --host 0.0.0.0 --port 8000 . _build/html",
+    "serve:vtt": "zx scripts/docker/vttserve.mjs",
+    "build:docs": "zx scripts/docker/docbuild.mjs",
+    "devserve:docs": "zx scripts/docker/docserve.mjs",
     "prettier:format": "prettier --config .prettierrc.json --write \"./src/**/*.{ts,js,mjs,json,scss,css}\"",
     "lint-staged": "lint-staged",
     "lint": "eslint src/",
@@ -39,12 +38,14 @@
     "@sveltejs/vite-plugin-svelte": "^5.0.3",
     "@tsconfig/svelte": "^5.0.4",
     "commitizen": "4.3.1",
+    "config": "^4.0.0",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "^9.24.0",
     "eslint-config-prettier": "^10.1.2",
     "eslint-plugin-jsdoc": "^50.6.9",
     "eslint-plugin-prettier": "^5.2.6",
     "eslint-plugin-svelte": "^3.5.1",
+    "find-up": "^7.0.0",
     "globals": "^16.0.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.5.1",
@@ -55,10 +56,14 @@
     "typescript-eslint": "^8.30.1",
     "vite": "^6.3.1",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3.1.1"
+    "vitest": "^3.1.1",
+    "zx": "^8.5.5"
   },
   "browserslist": [
     ">5%",
     "not IE 11"
-  ]
+  ],
+  "dependencies": {
+    "zod": "^3.25.51"
+  }
 }

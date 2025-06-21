@@ -1,0 +1,24 @@
+{
+  "docserve": {
+    "image": {
+      "registry": "DOCKER_DEVSERVE_IMAGE_REGISTRY",
+      "name": "DOCKER_DEVSERVE_IMAGE_NAME",
+      "version": "DOCKER_DEVSERVE_IMAGE_VERSION"
+    },
+    "ports": {
+      "__name": "DOCKER_DEVSERVE_SPHINX_PORTS",
+      "__format": "jsor"
+    },
+    "volumes": {
+      "__name": "DOCKER_DEVSERVE_VOLUMES",
+      "__format": "json"
+    },
+    "name": "DOCKER_DEVSERVE_NAME"
+  },
+  "vttserve": {
+    "ports": {
+      "__name": "DOCKER_VTTSERVE_PORTS",
+      "__format": "json"
+    }
+  }
+}
