@@ -39,6 +39,7 @@ export default ({ mode }) => {
     publicDir: false, // No public resources to copy.
     cacheDir: '../.vite-cache', // Relative from root directory.
     test: {
+      include: ['**/*.{test,spec}.?(c|m)[jt]s?(x)', '../test/**/*.{test,spec}.?(c|m)[jt]s?(x)'],
       includeSource: ['**/*.{ts,js}'],
     },
     define: {
@@ -54,7 +55,6 @@ export default ({ mode }) => {
     },
 
     css: {
-      // Creates a standard configuration for PostCSS with autoprefixer & postcss-preset-env.
       postcss: { plugins: { autoprefixer: {} }, compress: s_COMPRESS, sourceMap: s_SOURCEMAPS },
     },
 
