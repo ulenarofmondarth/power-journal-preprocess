@@ -32,6 +32,12 @@
 - simplify code
 - prepare for render and better error handling
 
+## v0.6.2 (2025-06-22)
+
+### Fix
+
+- **module.json**: module id, title, and urls corrected
+
 ## v0.6.1 (2025-06-21)
 
 ### Refactor
