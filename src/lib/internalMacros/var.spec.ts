@@ -4,7 +4,6 @@ import { localize } from '@lib/helpers';
 import { save } from '@lib/variableStore';
 
 vi.mock('@lib/helpers');
-//vi.mock('@lib/variableStore');
 
 describe('varMacro', () => {
   afterEach(() => {
@@ -19,7 +18,6 @@ describe('varMacro', () => {
   });
 
   it('returns value associated with the variable', () => {
-    //vi.mocked(lookup).mockImplementation((x) => (x === 'a') ? 'isTrue' : undefined);
     const correctResult = 'isTrue';
     save('a', 'isTrue');
 
