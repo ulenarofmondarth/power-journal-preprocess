@@ -57,6 +57,11 @@
 <li class="toctree-l1"><a class="reference internal" href="internal_macros.html">Internal macros</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fvtt_macros.html">Foundry Macros</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">For Developers:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developers/environment.html">Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developers/scripts.html">Scripts</a></li>
+</ul>
 
         </div>
       </div>
@@ -94,6 +99,10 @@
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">fn1</span></code> has two arguments separated by the <code class="docutils literal notranslate"><span class="pre">|</span></code> character.</p>
 <p><code class="docutils literal notranslate"><span class="pre">fn2</span></code> has two arguments separated by the <code class="docutils literal notranslate"><span class="pre">,</span></code> character.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>It is best to stick with <code class="docutils literal notranslate"><span class="pre">|</span></code> as a seprator unless you have a specific need to use something else. This character is not common in HTML (the most likely format returned by macros).</p>
+</div>
 <section id="complex-separators">
 <span id="id1"></span><h3>Complex Separators<a class="headerlink" href="#complex-separators" title="Link to this heading"></a></h3>
 <p>Because macros expand fully into their parent before arguments are identified it can be difficult to choose a single character argument separator.</p>
@@ -113,7 +122,8 @@
 {{&quot;My Macro&quot; /-{3}/ {{page | SomeUUID}} --- arg2 }}
 </pre></div>
 </div>
-<p>Here the <code class="docutils literal notranslate"><span class="pre">&quot;-Sep-&quot;</span></code> specifies the string <code class="docutils literal notranslate"><span class="pre">-Sep-</span></code> is used to separate arguments in this macro. The second example specifies a regular expression <code class="docutils literal notranslate"><span class="pre">-{3}</span></code>, so three <code class="docutils literal notranslate"><span class="pre">-</span></code> characters are considered to be an argument separator.</p>
+<p>In the first example, the <code class="docutils literal notranslate"><span class="pre">&quot;-Sep-&quot;</span></code> specifies the string <code class="docutils literal notranslate"><span class="pre">-Sep-</span></code> is used to separate arguments in the “My Macro” macro.</p>
+<p>The second example specifies a regular expression <code class="docutils literal notranslate"><span class="pre">-{3}</span></code>, so three <code class="docutils literal notranslate"><span class="pre">-</span></code> characters are considered to be an argument separator.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Subsequent separators are not quoted.</p>

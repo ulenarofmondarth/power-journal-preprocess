@@ -1,7 +1,7 @@
 Power Journal Enrich Preprocess documentation
 =============================================
 
-This is a generalized pre-processor for Foundry VTT ``enrichHTML``, standard enrich functinality remains unchanged and is performed *after* this preprocessing.
+This is a generalized pre-processor for Foundry VTT ``enrichHTML``, standard enrich functionality remains unchanged and is performed *after* this preprocessing.
 
 Basic form
 ----------
@@ -77,3 +77,10 @@ To mitigate this problem there is a limit to the number of times any one functio
    macro_arguments.rst
    internal_macros.rst
    fvtt_macros.rst
+
+.. toctree::
+   :maxdepth: 2
+   :caption: For Developers:
+
+   developers/environment.rst
+   developers/scripts.rst

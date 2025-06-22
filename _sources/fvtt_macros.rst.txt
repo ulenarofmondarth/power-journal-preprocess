@@ -86,3 +86,4 @@ Assuming we put the ``My Macro`` macro into a compendium this preprocess macro w
 
    My name is Tess
 
+.. caution:: There is currently a limitation when using Compendium macros (see `Issue #1 <https://github.com/ulenarofmondarth/power-journal-preprocess/issues/1>`_).

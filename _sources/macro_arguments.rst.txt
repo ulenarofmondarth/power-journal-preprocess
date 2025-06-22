@@ -17,6 +17,8 @@ The first non-space character after the macro name is assumed to be the argument
 
 ``fn2`` has two arguments separated by the ``,`` character.
 
+.. tip:: It is best to stick with ``|`` as a seprator unless you have a specific need to use something else. This character is not common in HTML (the most likely format returned by macros).
+
 .. _Complex separators:
 Complex Separators
 ~~~~~~~~~~~~~~~~~~
@@ -43,7 +45,9 @@ To work around these cases you can specify a more complex (and hopefully unique)
 
    {{"My Macro" /-{3}/ {{page | SomeUUID}} --- arg2 }}
 
-Here the ``"-Sep-"`` specifies the string ``-Sep-`` is used to separate arguments in this macro. The second example specifies a regular expression ``-{3}``, so three ``-`` characters are considered to be an argument separator.
+In the first example, the ``"-Sep-"`` specifies the string ``-Sep-`` is used to separate arguments in the "My Macro" macro.
+
+The second example specifies a regular expression ``-{3}``, so three ``-`` characters are considered to be an argument separator.
 
 .. note:: Subsequent separators are not quoted.
 

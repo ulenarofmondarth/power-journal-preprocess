@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>set &mdash; PJE Preprocess 0.6.1 documentation</title>
+  <title>Scripts &mdash; PJE Preprocess 0.6.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -21,8 +21,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="var" href="var.html" />
-    <link rel="prev" title="if" href="if.html" /> 
+    <link rel="prev" title="Environment" href="environment.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,25 +44,16 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../macro_expansion.html">Macro Expansion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../macro_arguments.html">Macro Arguments</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../internal_macros.html">Internal macros</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="if.html">if</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">set</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#variable-names">Variable names</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#variable-values">Variable values</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="var.html">var</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../internal_macros.html">Internal macros</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../fvtt_macros.html">Foundry Macros</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">For Developers:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../developers/environment.html">Environment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../developers/scripts.html">Scripts</a></li>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="environment.html">Environment</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Scripts</a></li>
 </ul>
 
         </div>
@@ -80,10 +70,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../internal_macros.html">Internal macros</a></li>
-      <li class="breadcrumb-item active">set</li>
+      <li class="breadcrumb-item active">Scripts</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/internal/set.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/developers/scripts.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -91,30 +80,17 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="set">
-<span id="internal-set-macro"></span><h1>set<a class="headerlink" href="#set" title="Link to this heading"></a></h1>
-<p>Set a world scope variable.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span> <span class="nb">set</span> <span class="o">|</span> <span class="n">a</span> <span class="o">|</span> <span class="n">some</span> <span class="n">value</span> <span class="p">}}</span>
-</pre></div>
-</div>
-<p>This sets the variable <code class="docutils literal notranslate"><span class="pre">a</span></code> to <code class="docutils literal notranslate"><span class="pre">some</span> <span class="pre">value</span></code>. These variables are stored in the world (so they will persist between sessions).</p>
-<p>The macro expands to the empty string (so it is effectively removed from the output).</p>
-<section id="variable-names">
-<h2>Variable names<a class="headerlink" href="#variable-names" title="Link to this heading"></a></h2>
-<p>Variable names are simple strings. They can contain spaces but, as with any argument, spaces before/after the first non-whitespace are removed.</p>
-</section>
-<section id="variable-values">
-<h2>Variable values<a class="headerlink" href="#variable-values" title="Link to this heading"></a></h2>
-<p>All variables store their value as a string.</p>
-</section>
+  <section id="scripts">
+<h1>Scripts<a class="headerlink" href="#scripts" title="Link to this heading"></a></h1>
+<p>To maintain consistency most scripts in <code class="docutils literal notranslate"><span class="pre">package.json</span></code> are implemented as Javascript scripts under the <code class="docutils literal notranslate"><span class="pre">scripts</span></code> directory. These scripts load configuration from the <code class="docutils literal notranslate"><span class="pre">scripts/config</span></code> directory and the user’s data directory (under <code class="docutils literal notranslate"><span class="pre">zx</span></code>).</p>
+<p>Each script is a <code class="docutils literal notranslate"><span class="pre">zx</span></code> script (<code class="docutils literal notranslate"><span class="pre">zx</span></code> is installed as a devDependency).</p>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="if.html" class="btn btn-neutral float-left" title="if" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="var.html" class="btn btn-neutral float-right" title="var" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="environment.html" class="btn btn-neutral float-left" title="Environment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

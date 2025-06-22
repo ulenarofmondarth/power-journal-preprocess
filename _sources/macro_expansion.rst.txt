@@ -60,7 +60,7 @@ No whitespace it trimmed from macro return values.
 Macro Names
 ~~~~~~~~~~~
 
-It if common for Foundry macro names to contain spaces. To allow for this you can include the macro name in quotes (single of double).
+It if common for Foundry macro names to contain spaces. To allow for this you can include the macro name in quotes (single or double).
 
 .. code-block:: txt
 
