@@ -32,6 +32,12 @@
 - simplify code
 - prepare for render and better error handling
 
+## v0.6.3 (2025-06-22)
+
+### Fix
+
+- **module**: corrects module entrypoint
+
 ## v0.6.2 (2025-06-22)
 
 ### Fix
