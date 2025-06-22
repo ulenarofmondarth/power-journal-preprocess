@@ -1,1 +1,1 @@
-export const MODULE_ID = 'mondarth-power-journal';
+export const MODULE_ID = 'mondarth-power-journal-preprocess';

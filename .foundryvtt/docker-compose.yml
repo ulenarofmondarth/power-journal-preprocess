@@ -13,7 +13,7 @@ services:
         target: /data
       - type: bind
         source: ..
-        target: /data/Data/modules/mondarth-power-journal
+        target: /data/Data/modules/mondarth-power-journal-preprocess
     environment:
       - CONTAINER_PRESERVE_CONFIG=true
       - FOUNDRY_UID=1000
