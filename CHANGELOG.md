@@ -32,6 +32,16 @@
 - simplify code
 - prepare for render and better error handling
 
+## v0.7.0 (2025-06-27)
+
+### Feat
+
+- **api**: adds basic api
+
+### Refactor
+
+- defines module id in global ClientSettings namespace
+
 ## v0.6.3 (2025-06-22)
 
 ### Fix
