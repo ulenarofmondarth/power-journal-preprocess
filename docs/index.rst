@@ -77,10 +77,14 @@ To mitigate this problem there is a limit to the number of times any one functio
    macro_arguments.rst
    internal_macros.rst
    fvtt_macros.rst
+   api.rst
 
 .. toctree::
    :maxdepth: 2
    :caption: For Developers:
 
+   developers/prerequisites.rst
+   developers/setup.rst
    developers/environment.rst
    developers/scripts.rst
+   developers/alternatives.rst
