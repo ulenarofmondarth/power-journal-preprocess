@@ -22,7 +22,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Scripts" href="scripts.html" />
-    <link rel="prev" title="Foundry Macros" href="../fvtt_macros.html" /> 
+    <link rel="prev" title="Setup" href="setup.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -50,11 +50,20 @@
 <li class="toctree-l1"><a class="reference internal" href="../macro_arguments.html">Macro Arguments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../internal_macros.html">Internal macros</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../fvtt_macros.html">Foundry Macros</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">For Developers:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#servers">Servers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#version-control">Version Control</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="scripts.html">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="alternatives.html">Alternatives</a></li>
 </ul>
 
         </div>
@@ -83,15 +92,29 @@
              
   <section id="environment">
 <h1>Environment<a class="headerlink" href="#environment" title="Link to this heading"></a></h1>
+<section id="servers">
+<h2>Servers<a class="headerlink" href="#servers" title="Link to this heading"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">pnpm</span> <span class="pre">devserve:docs</span></code> will start a server that builds and serves the documentation for this project in a local docker container. You can configure the port that this server uses in <code class="docutils literal notranslate"><span class="pre">scripts/config/defaults.json</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">pnpm</span> <span class="pre">serve:vtt</span></code> will start a Foundry VTT server. This can be used to support the <code class="docutils literal notranslate"><span class="pre">vite</span> <span class="pre">dev</span></code> server.</p>
+<p><code class="docutils literal notranslate"><span class="pre">pnpm</span> <span class="pre">dev</span></code> will start <code class="docutils literal notranslate"><span class="pre">vite</span> <span class="pre">dev</span></code>. This expects the main Foundry serves to be running (<code class="docutils literal notranslate"><span class="pre">pnpm</span> <span class="pre">serve:vtt</span></code>).</p>
+</section>
+<section id="testing">
+<h2>Testing<a class="headerlink" href="#testing" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">pnpm</span> <span class="pre">test</span></code> will run all tests once, then exit.</p>
+<p><code class="docutils literal notranslate"><span class="pre">pnpm</span> <span class="pre">vitest</span></code> will run all tests, then watch for changes, rerunning any tests related to the changed files.</p>
+</section>
+<section id="version-control">
+<h2>Version Control<a class="headerlink" href="#version-control" title="Link to this heading"></a></h2>
+<p>This project uses <a class="reference external" href="https://typicode.github.io/husky/">husky</a> to manage various <strong class="program">git</strong> scripts. These are used to run formatting, linting, and testing on every commit. They also enforce the use of <a class="reference external" href="https://github.com/conventional-changelog/conventional-changelog">conventional commits</a> using <a class="reference external" href="https://www.npmjs.com/package/commitizen">commitizen</a>.</p>
+<p>All this means that release notes are automatically generated during the <code class="docutils literal notranslate"><span class="pre">.github/workflow</span></code> to build and release this module.</p>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../fvtt_macros.html" class="btn btn-neutral float-left" title="Foundry Macros" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="setup.html" class="btn btn-neutral float-left" title="Setup" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="scripts.html" class="btn btn-neutral float-right" title="Scripts" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

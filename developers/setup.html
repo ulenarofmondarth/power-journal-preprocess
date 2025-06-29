@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Scripts &mdash; PJE Preprocess 0.7.0 documentation</title>
+  <title>Setup &mdash; PJE Preprocess 0.7.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -21,8 +21,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Alternatives" href="alternatives.html" />
-    <link rel="prev" title="Environment" href="environment.html" /> 
+    <link rel="next" title="Environment" href="environment.html" />
+    <link rel="prev" title="Prerequisites" href="prerequisites.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -55,9 +55,9 @@
 <p class="caption" role="heading"><span class="caption-text">For Developers:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="prerequisites.html">Prerequisites</a></li>
-<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="environment.html">Environment</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.html">Scripts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="alternatives.html">Alternatives</a></li>
 </ul>
 
@@ -75,9 +75,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Scripts</li>
+      <li class="breadcrumb-item active">Setup</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/developers/scripts.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/developers/setup.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -85,18 +85,41 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="scripts">
-<h1>Scripts<a class="headerlink" href="#scripts" title="Link to this heading"></a></h1>
-<p>To maintain consistency most scripts in <code class="docutils literal notranslate"><span class="pre">package.json</span></code> are implemented as Javascript scripts under the <code class="docutils literal notranslate"><span class="pre">scripts</span></code> directory. These scripts load configuration from the <code class="docutils literal notranslate"><span class="pre">scripts/config</span></code> directory and the user’s data directory (under <code class="docutils literal notranslate"><span class="pre">zx</span></code>).</p>
-<p>Each script is a <code class="docutils literal notranslate"><span class="pre">zx</span></code> script (<code class="docutils literal notranslate"><span class="pre">zx</span></code> is installed as a devDependency).</p>
+  <section id="setup">
+<h1>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h1>
+<p>Once the <a class="reference internal" href="prerequisites.html#prerequisites"><span class="std std-ref">Prerequisites</span></a> are installed setup is simple enough.</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">.foundryvtt</span></code> create a file <code class="docutils literal notranslate"><span class="pre">secrets.json</span></code>, this holds information used to start the Foundry server.</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">secrets.json</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;foundry_admin_key&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;foundry_username&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;foundry_passworc&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;foundry_license_key&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">foundry_admin_key</span></code></dt><dd><p>This is the administrator key that you use to connect to the server’s setup screen.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">foundry_username</span></code></dt><dd><p>Your <a class="reference external" href="https://foundryvtt.com">https://foundryvtt.com</a> username (for the account that you used to purchase the license).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">foundry_pasword</span></code></dt><dd><p>Your <a class="reference external" href="https://foundryvtt.com">https://foundryvtt.com</a> password.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">foundry_license_key</span></code></dt><dd><p>The license key to be ued when activating the Foundry VTT server. This key must be present in the account you specify with <code class="docutils literal notranslate"><span class="pre">foundry_username</span></code>/<code class="docutils literal notranslate"><span class="pre">foundry_password</span></code>.</p>
+</dd>
+</dl>
+<p>You may want to edit the <code class="docutils literal notranslate"><span class="pre">VERSION</span></code> environment variable in <code class="docutils literal notranslate"><span class="pre">.foundryvtt/.env</span></code>. This determines which version of Foundry VTT will be run by the <code class="docutils literal notranslate"><span class="pre">pnpm</span> <span class="pre">serve:vtt</span></code> script.</p>
+<p>And you should be good to go.</p>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="environment.html" class="btn btn-neutral float-left" title="Environment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="alternatives.html" class="btn btn-neutral float-right" title="Alternatives" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="prerequisites.html" class="btn btn-neutral float-left" title="Prerequisites" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="environment.html" class="btn btn-neutral float-right" title="Environment" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
